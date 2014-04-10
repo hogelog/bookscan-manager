@@ -1,4 +1,4 @@
-require_relative "model/book_info"
+require_relative "model/book"
 
 module BookscanManager
   module Model

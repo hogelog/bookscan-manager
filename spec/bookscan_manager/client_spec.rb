@@ -4,7 +4,7 @@ describe BookscanManager::Client do
   let(:client) { BookscanManager.client }
 
   describe "#list" do
-    subject { client.parse_book_info_link(link) }
+    subject { client.parse_showbook_link(link) }
 
     context "with valid link" do
       let(:link) { "showbook.php?h=deadbeef&d=cafebabe&f=hoge.pdf" }

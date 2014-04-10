@@ -11,4 +11,7 @@ config = Pit.get("bookscan_manager", require: {
 
 client = BookscanManager::Client.new(config)
 
-client.download_all
+books = client.list
+books.each do |book|
+  client.download(book, directory: config["pdf_directory"])
+end
