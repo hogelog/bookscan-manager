@@ -1,5 +1,6 @@
 require "mechanize"
 require "uri"
+require "rack"
 require "logger"
 require "pry"
 
@@ -61,11 +62,10 @@ module BookscanManager
       end
     end
 
-    LINK_REGEXP = /showbook.php\?h=(.+)&d=(.+)&f=(.+)$/.freeze
-
     def parse_showbook_link(link)
-      matcher = LINK_REGEXP.match(link) or return
-      BookscanManager::Model::BookInfo.new(matcher[1], matcher[2], matcher[3])
+      query = Rack::Utils.parse_query(URI.parse(link).query)
+      return unless query["h"] && query["d"] && query["f"]
+      BookscanManager::Model::BookInfo.new(query["h"], query["d"], query["f"])
     end
   end
 end

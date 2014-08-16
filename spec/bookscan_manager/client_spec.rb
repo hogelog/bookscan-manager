@@ -1,13 +1,14 @@
 require "spec_helper"
 
 describe BookscanManager::Client do
-  let(:client) { BookscanManager.client }
+  let(:config) { {} }
+  let(:client) { BookscanManager::Client.new(config) }
 
   describe "#list" do
     subject { client.parse_showbook_link(link) }
 
     context "with valid link" do
-      let(:link) { "showbook.php?h=deadbeef&d=cafebabe&f=hoge.pdf" }
+      let(:link) { "showbook.php?h=deadbeef&d=cafebabe&f=hoge.pdf&hoge=fuga" }
 
       it "returns book info" do
         expect(subject.hash).to eq("deadbeef")
